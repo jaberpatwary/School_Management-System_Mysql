@@ -8,6 +8,7 @@ type MangaControllerInterface interface {
 	//classroom
 	InsertClassroom(*gin.Context)
 	GetAllClassroom(*gin.Context)
+	GetOneClassroom(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {

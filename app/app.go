@@ -25,7 +25,7 @@ func (a *App) Routes() {
 	//classroom router
 	r.POST("/classroom", controller.InsertClassroom)
 	r.GET("/classroom", controller.GetAllClassroom)
-	//r.GET("/classroom/:id", controller.GetOneClassroom)
+	r.GET("/classroom/:id", controller.GetOneClassroom)
 	//r.PUT("/classroom/:id", controller.UpdateClassroom)
 	//r.DELETE("/classroom/:id", controller.DeleteClassroom)
 

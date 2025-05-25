@@ -151,3 +151,22 @@ func (m *MangaController) GetAllClassroom(c *gin.Context) {
 		return
 	}
 }
+
+// Get One classroom
+func (m *MangaController) GetOneClassroom(c *gin.Context) {
+	DB := m.Db
+	var uri model.ClassroomUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewClassroomRepository(DB)
+	get := repository.GetOneClassroom(uri.ID)
+	if (get != model.Classroom{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get classroom successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "classroom not found"})
+		return
+	}
+}
