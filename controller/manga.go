@@ -125,7 +125,7 @@ func (m *MangaController) InsertCourse(c *gin.Context) {
 	}
 
 	repository := repository.NewCourseRepository(DB)
-	insert := repository.InsertClassroom(post)
+	insert := repository.InsertCourse(post)
 	if insert {
 		c.JSON(201, gin.H{"Status": "success", "meg": " course has saved!"})
 		return
