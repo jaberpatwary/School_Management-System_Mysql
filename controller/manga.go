@@ -16,6 +16,7 @@ func NewMangaController(db *sql.DB) MangaControllerInterface {
 	return &MangaController{Db: db}
 }
 
+// insart classroom
 func (m *MangaController) InsertClassroom(c *gin.Context) {
 
 	DB := m.Db
@@ -109,6 +110,27 @@ func (m *MangaController) DeleteClassroom(c *gin.Context) {
 		return
 	} else {
 		c.JSON(500, gin.H{"status": "failed", "msg": "delete classroom  failed"})
+		return
+	}
+}
+
+// insart course
+func (m *MangaController) InsertCourse(c *gin.Context) {
+
+	DB := m.Db
+	var post model.PostCourse
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+
+	repository := repository.NewCourseRepository(DB)
+	insert := repository.InsertClassroom(post)
+	if insert {
+		c.JSON(201, gin.H{"Status": "success", "meg": " course has saved!"})
+		return
+	} else {
+		c.JSON(500, gin.H{"Status": "failed", "meg": " course  is not saved!"})
 		return
 	}
 }
