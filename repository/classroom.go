@@ -155,24 +155,24 @@ func (m *ClassroomRepository) GetOneClassroom(id int) model.Classroom {
 	query, err := m.Db.Query("SELECT * FROM school.classroom WHERE id = ?", id)
 	if err != nil {
 		log.Println(err)
-		return model.Category{}
+		return model.Classroom{}
 	}
 	defer query.Close()
-	var category model.Category
+	var classroom model.Classroom
 	if query != nil {
 		for query.Next() {
 			var (
-				id    int
-				name  string
-				types *string
+				id       int
+				room     int
+				capacity *int
 			)
-			err := query.Scan(&id, &name, &types)
+			err := query.Scan(&id, &room, &capacity)
 			if err != nil {
 				log.Println(err)
-				return model.Category{}
+				return model.Classroom{}
 			}
-			category = model.Category{ID: id, Name: name, Types: types}
+			classroom = model.Classroom{ID: id, Room: room, Capacity: capacity}
 		}
 	}
-	return category
+	return classroom
 }
