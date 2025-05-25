@@ -187,3 +187,13 @@ func (p *ClassroomRepository) UpdateClassroom(id int, post model.PostClassroom) 
 	}
 	return p.GetOneClassroom(id)
 }
+
+// Delete calssroom
+func (m *ClassroomRepository) DeleteClassroom(id int) bool {
+	_, err := m.Db.Exec("DELETE FROM classroom WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}
