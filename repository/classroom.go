@@ -123,3 +123,29 @@ func (p *ClassroomRepository) InsertClassroom(post model.PostClassroom) bool {
 	}
 	return true
 }
+
+// GetAll classroom
+func (p *ClassroomRepository) GetAllClassroom() []model.Classroom {
+	query, err := p.Db.Query("SELECT * FROM school.classroom")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var classrooms []model.Classroom
+	if query != nil {
+		for query.Next() {
+			var (
+				id       int
+				room     int
+				capacity *int
+			)
+			err := query.Scan(&id, &room, &capacity)
+			if err != nil {
+				log.Println(err)
+			}
+			classroom := model.Classroom{ID: id, Room: room, Capacity: capacity}
+			classrooms = append(classrooms, classroom)
+		}
+	}
+	return classrooms
+}

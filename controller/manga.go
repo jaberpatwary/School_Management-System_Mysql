@@ -137,3 +137,17 @@ func (m *MangaController) InsertClassroom(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all classroom
+func (m *MangaController) GetAllClassroom(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewClassroomRepository(DB)
+	get := repository.GetAllClassroom()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get classroom successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "classroom not found"})
+		return
+	}
+}

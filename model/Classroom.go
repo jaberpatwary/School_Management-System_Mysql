@@ -1,6 +1,6 @@
 package model
 
-type classroom struct {
+type Classroom struct {
 	ID       int  `json:"id"`
 	Room     int  `json:"room"`
 	Capacity *int `json:"capacity"`
