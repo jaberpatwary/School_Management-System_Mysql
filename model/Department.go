@@ -1,13 +1,13 @@
 package model
 
 type Department struct {
-	ID       int  `json:"id"`
-	Name     string  `json:"name"`
+	ID              int     `json:"id"`
+	Name            string  `json:"name"`
 	Department_Head *string `json:"department_head"`
 }
 
-type PostDepartmentstruct {
-	Name     string  `json:"name"`
+type PostDepartment struct {
+	Name            string  `json:"name"`
 	Department_Head *string `json:"department_head"`
 }
 
