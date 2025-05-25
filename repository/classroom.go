@@ -8,15 +8,15 @@ import (
 	"github.com/ramadhanalfarisi/go-simple-crud/model"
 )
 
-type CategoryRepository struct {
+type ClassroomRepository struct {
 	Db *sql.DB
 }
 
-func NewCategoryRepository(db *sql.DB) CategoryRepositoryInterface {
-	return &CategoryRepository{Db: db}
+func NewClassroomRepository(db *sql.DB) ClassroomRepositoryInterface {
+	return &ClassroomRepository{Db: db}
 }
 
-// Insert category
+/* Insert category
 func (p *CategoryRepository) InsertCategory(post model.PostCategory) bool {
 	stmt, err := p.Db.Prepare("INSERT INTO category(name, types) VALUES (?,?)")
 	if err != nil {
@@ -102,6 +102,23 @@ func (m *CategoryRepository) DeleteCategory(id int) bool {
 	_, err := m.Db.Exec("DELETE FROM category WHERE id = ?", id)
 	if err != nil {
 		log.Println(err)
+		return false
+	}
+	return true
+}*/
+
+// Insert classroom
+func (p *ClassroomRepository) InsertClassroom(post model.PostClassroom) bool {
+	stmt, err := p.Db.Prepare("INSERT INTO classroom(room, capacity) VALUES (?,?)")
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	defer stmt.Close()
+
+	_, err2 := stmt.Exec(post.Room, post.Capacity)
+	if err2 != nil {
+		log.Println(err2)
 		return false
 	}
 	return true
