@@ -170,3 +170,28 @@ func (m *MangaController) GetOneClassroom(c *gin.Context) {
 		return
 	}
 }
+
+//update classroom
+
+func (m *MangaController) UpdateClassroom(c *gin.Context) {
+	DB := m.Db
+	var post model.PostClassroom
+	var uri model.ClassroomUri
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewClassroomRepository(DB)
+	update := repository.UpdateClassroom(uri.ID, post)
+	if (update != model.Classroom{}) {
+		c.JSON(200, gin.H{"status": "success", "data": update, "classroom ": "update classroom successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "data": nil, "classroom ": "update classroom  failed"})
+		return
+	}
+}

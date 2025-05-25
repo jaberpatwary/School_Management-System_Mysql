@@ -176,3 +176,14 @@ func (m *ClassroomRepository) GetOneClassroom(id int) model.Classroom {
 	}
 	return classroom
 }
+
+//update classroom
+
+func (p *ClassroomRepository) UpdateClassroom(id int, post model.PostClassroom) model.Classroom {
+	_, err := p.Db.Exec("UPDATE classroom SET room = ?, capacity = ? WHERE id = ?", post.Room, post.Capacity, id)
+	if err != nil {
+		log.Println(err)
+		return model.Classroom{}
+	}
+	return p.GetOneClassroom(id)
+}

@@ -7,5 +7,5 @@ type ClassroomRepositoryInterface interface {
 	GetAllClassroom() []model.Classroom
 	GetOneClassroom(int) model.Classroom
 	//DeleteClassroom(int) bool
-	//UpdateClassroom(int, model.PostClassroom) model.Classroom
+	UpdateClassroom(int, model.PostClassroom) model.Classroom
 }
