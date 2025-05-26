@@ -43,6 +43,13 @@ func (a *App) Routes() {
 	r.PUT("/department/:id", controller.UpdateDepartment)
 	r.DELETE("/department/:id", controller.DeleteDepartment)
 
+	//student
+	r.POST("/student", controller.InsertStudent)
+	//r.GET("/student", controller.GetAllStudent)
+	//r.GET("/student/:id", controller.GetOneStudent)
+	//r.PUT("/student/:id", controller.UpdateStudent)
+	//r.DELETE("/student/:id", controller.DeleteStudent)
+
 	a.Router = r
 }
 

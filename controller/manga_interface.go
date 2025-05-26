@@ -25,6 +25,9 @@ type MangaControllerInterface interface {
 	GetOneDepartment(*gin.Context)
 	UpdateDepartment(*gin.Context)
 	DeleteDepartment(*gin.Context)
+
+	//student
+	InsertStudent(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {
@@ -49,4 +52,11 @@ type DepartmentControllerInterface interface {
 	//GetOneDepartment(*gin.Context)
 	//UpdateDepartment(*gin.Context)
 	//DeleteDepartment(*gin.Context)
+}
+type StudentControllerInterface interface {
+	//InsertStudent(*gin.Context)
+	//GetAllStudent(*gin.Context)
+	//GetOneStudent(*gin.Context)
+	//UpdateStudent(*gin.Context)
+	//DeleteStudent(*gin.Context)
 }

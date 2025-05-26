@@ -309,3 +309,24 @@ func (m *MangaController) DeleteDepartment(c *gin.Context) {
 		return
 	}
 }
+
+// insart student
+func (m *MangaController) InsertStudent(c *gin.Context) {
+
+	DB := m.Db
+	var post model.PostStudent
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+
+	repository := repository.NewStudentRepository(DB)
+	insert := repository.InsertStudent(post)
+	if insert {
+		c.JSON(201, gin.H{"Status": "success", "meg": " student has saved!"})
+		return
+	} else {
+		c.JSON(500, gin.H{"Status": "failed", "meg": " student  is not saved!"})
+		return
+	}
+}
