@@ -59,3 +59,31 @@ func (p *CourseRepository) GetAllCourse() []model.Course {
 	}
 	return courses
 }
+
+// GetOne course
+func (m *CourseRepository) GetOneCourse(id int) model.Course {
+	query, err := m.Db.Query("SELECT * FROM school.course WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return model.Course{}
+	}
+	defer query.Close()
+	var course model.Course
+	if query != nil {
+		for query.Next() {
+			var (
+				id          int
+				course_name string
+				department  *string
+				credit      *string
+			)
+			err := query.Scan(&id, &course_name, &department, &credit)
+			if err != nil {
+				log.Println(err)
+				return model.Course{}
+			}
+			course = model.Course{ID: id, Course_Name: course_name, Department: department, Credit: credit}
+		}
+	}
+	return course
+}

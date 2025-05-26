@@ -148,3 +148,22 @@ func (m *MangaController) GetAllCourse(c *gin.Context) {
 		return
 	}
 }
+
+// Get One course
+func (m *MangaController) GetOneCourse(c *gin.Context) {
+	DB := m.Db
+	var uri model.CourseUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewCourseRepository(DB)
+	get := repository.GetOneCourse(uri.ID)
+	if (get != model.Course{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get course successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "course not found"})
+		return
+	}
+}
