@@ -290,3 +290,22 @@ func (m *MangaController) UpdateDepartment(c *gin.Context) {
 		return
 	}
 }
+
+// Delete department
+func (m *MangaController) DeleteDepartment(c *gin.Context) {
+	DB := m.Db
+	var uri model.DepartmentUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewDepartmentRepository(DB)
+	delete := repository.DeleteDepartment(uri.ID)
+	if delete {
+		c.JSON(200, gin.H{"status": "success", "msg": "delete department successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "msg": "delete department  failed"})
+		return
+	}
+}

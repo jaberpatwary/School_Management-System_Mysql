@@ -96,3 +96,13 @@ func (p *DepartmentRepository) UpdateDepartment(id int, post model.PostDepartmen
 	}
 	return p.GetOneDepartment(id)
 }
+
+// Delete department
+func (m *DepartmentRepository) DeleteDepartment(id int) bool {
+	_, err := m.Db.Exec("DELETE FROM course WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}

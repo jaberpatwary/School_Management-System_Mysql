@@ -6,6 +6,6 @@ type DepartmentRepositoryInterface interface {
 	InsertDepartment(model.PostDepartment) bool
 	GetAllDepartment() []model.Department
 	GetOneDepartment(int) model.Department
-	//DeleteDepartment(int) bool
+	DeleteDepartment(int) bool
 	UpdateDepartment(int, model.PostDepartment) model.Department
 }
