@@ -17,6 +17,7 @@ type MangaControllerInterface interface {
 	GetAllCourse(*gin.Context)
 	GetOneCourse(*gin.Context)
 	UpdateCourse(*gin.Context)
+	DeleteCourse(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {

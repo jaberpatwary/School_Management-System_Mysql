@@ -192,3 +192,22 @@ func (m *MangaController) UpdateCourse(c *gin.Context) {
 		return
 	}
 }
+
+// Deletecourse
+func (m *MangaController) DeleteCourse(c *gin.Context) {
+	DB := m.Db
+	var uri model.CourseUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewCourseRepository(DB)
+	delete := repository.DeleteCourse(uri.ID)
+	if delete {
+		c.JSON(200, gin.H{"status": "success", "msg": "delete course successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "msg": "delete course  failed"})
+		return
+	}
+}

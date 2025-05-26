@@ -6,6 +6,6 @@ type CourseRepositoryInterface interface {
 	InsertCourse(model.PostCourse) bool
 	GetAllCourse() []model.Course
 	GetOneCourse(int) model.Course
-	//DeleteCourse(int) bool
+	DeleteCourse(int) bool
 	UpdateCourse(int, model.PostCourse) model.Course
 }

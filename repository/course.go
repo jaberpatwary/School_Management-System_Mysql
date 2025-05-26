@@ -98,3 +98,13 @@ func (p *CourseRepository) UpdateCourse(id int, post model.PostCourse) model.Cou
 	}
 	return p.GetOneCourse(id)
 }
+
+// Delete course
+func (m *CourseRepository) DeleteCourse(id int) bool {
+	_, err := m.Db.Exec("DELETE FROM course WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}
