@@ -32,3 +32,29 @@ func (p *DepartmentRepository) InsertDepartment(post model.PostDepartment) bool 
 	}
 	return true
 }
+
+// GetAll department
+func (p *DepartmentRepository) GetAllDepartment() []model.Department {
+	query, err := p.Db.Query("SELECT * FROM school.department")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var departments []model.Department
+	if query != nil {
+		for query.Next() {
+			var (
+				id              int
+				name            string
+				department_head *string
+			)
+			err := query.Scan(&id, &name, &department_head)
+			if err != nil {
+				log.Println(err)
+			}
+			department := model.Department{ID: id, Name: name, Department_Head: department_head}
+			departments = append(departments, department)
+		}
+	}
+	return departments
+}

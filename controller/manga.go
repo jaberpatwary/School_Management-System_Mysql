@@ -232,3 +232,17 @@ func (m *MangaController) InsertDepartment(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all department
+func (m *MangaController) GetAllDepartment(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewDepartmentRepository(DB)
+	get := repository.GetAllDepartment()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get department successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "department not found"})
+		return
+	}
+}
