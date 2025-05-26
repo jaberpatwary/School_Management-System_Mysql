@@ -87,3 +87,14 @@ func (m *CourseRepository) GetOneCourse(id int) model.Course {
 	}
 	return course
 }
+
+//update course
+
+func (p *CourseRepository) UpdateCourse(id int, post model.PostCourse) model.Course {
+	_, err := p.Db.Exec("UPDATE course SET course_name = ?, department = ?, credit = ? WHERE id = ?", post.Course_Name, post.Department, post.Credit, id)
+	if err != nil {
+		log.Println(err)
+		return model.Course{}
+	}
+	return p.GetOneCourse(id)
+}
