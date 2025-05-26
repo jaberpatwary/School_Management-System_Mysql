@@ -7,5 +7,5 @@ type DepartmentRepositoryInterface interface {
 	GetAllDepartment() []model.Department
 	GetOneDepartment(int) model.Department
 	//DeleteDepartment(int) bool
-	//UpdateDepartment(int, model.PostDepartment) model.Department
+	UpdateDepartment(int, model.PostDepartment) model.Department
 }

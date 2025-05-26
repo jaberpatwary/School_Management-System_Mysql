@@ -265,3 +265,28 @@ func (m *MangaController) GetOneDepartment(c *gin.Context) {
 		return
 	}
 }
+
+//update department
+
+func (m *MangaController) UpdateDepartment(c *gin.Context) {
+	DB := m.Db
+	var post model.PostDepartment
+	var uri model.DepartmentUri
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewDepartmentRepository(DB)
+	update := repository.UpdateDepartment(uri.ID, post)
+	if (update != model.Department{}) {
+		c.JSON(200, gin.H{"status": "success", "data": update, "department ": "update department successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "data": nil, "department  ": "update department  failed"})
+		return
+	}
+}

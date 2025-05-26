@@ -85,3 +85,14 @@ func (m *DepartmentRepository) GetOneDepartment(id int) model.Department {
 	}
 	return department
 }
+
+//update department
+
+func (p *DepartmentRepository) UpdateDepartment(id int, post model.PostDepartment) model.Department {
+	_, err := p.Db.Exec("UPDATE department SET name = ?, department_head = ? WHERE id = ?", post.Name, post.Department_Head, id)
+	if err != nil {
+		log.Println(err)
+		return model.Department{}
+	}
+	return p.GetOneDepartment(id)
+}

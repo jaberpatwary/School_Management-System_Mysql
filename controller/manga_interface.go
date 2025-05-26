@@ -23,6 +23,7 @@ type MangaControllerInterface interface {
 	InsertDepartment(*gin.Context)
 	GetAllDepartment(*gin.Context)
 	GetOneDepartment(*gin.Context)
+	UpdateDepartment(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {
