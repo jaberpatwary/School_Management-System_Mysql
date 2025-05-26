@@ -31,7 +31,7 @@ func (a *App) Routes() {
 
 	//course
 	r.POST("/course", controller.InsertCourse)
-	//r.GET("/course", controller.GetAllCourse)
+	r.GET("/course", controller.GetAllCourse)
 	//r.GET("/course/:id", controller.GetOneCourse)
 	//r.PUT("/course/:id", controller.UpdateCourse)
 	//r.DELETE("/course/:id", controller.DeleteCourse)

@@ -134,3 +134,17 @@ func (m *MangaController) InsertCourse(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all course
+func (m *MangaController) GetAllCourse(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewCourseRepository(DB)
+	get := repository.GetAllCourse()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get course successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "course not found"})
+		return
+	}
+}

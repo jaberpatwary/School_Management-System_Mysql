@@ -32,3 +32,30 @@ func (p *CourseRepository) InsertCourse(post model.PostCourse) bool {
 	}
 	return true
 }
+
+// GetAll course
+func (p *CourseRepository) GetAllCourse() []model.Course {
+	query, err := p.Db.Query("SELECT * FROM school.course")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var courses []model.Course
+	if query != nil {
+		for query.Next() {
+			var (
+				id          int
+				course_name string
+				department  *string
+				credit      *string
+			)
+			err := query.Scan(&id, &course_name, &department, &credit)
+			if err != nil {
+				log.Println(err)
+			}
+			course := model.Course{ID: id, Course_Name: course_name, Department: department, Credit: credit}
+			courses = append(courses, course)
+		}
+	}
+	return courses
+}
