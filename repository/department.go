@@ -58,3 +58,30 @@ func (p *DepartmentRepository) GetAllDepartment() []model.Department {
 	}
 	return departments
 }
+
+// GetOne department
+func (m *DepartmentRepository) GetOneDepartment(id int) model.Department {
+	query, err := m.Db.Query("SELECT * FROM school.course WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return model.Department{}
+	}
+	defer query.Close()
+	var department model.Department
+	if query != nil {
+		for query.Next() {
+			var (
+				id              int
+				name            string
+				department_head *string
+			)
+			err := query.Scan(&id, &name, &department_head)
+			if err != nil {
+				log.Println(err)
+				return model.Department{}
+			}
+			department = model.Department{ID: id, Name: name, Department_Head: department_head}
+		}
+	}
+	return department
+}

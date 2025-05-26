@@ -39,7 +39,7 @@ func (a *App) Routes() {
 	//department
 	r.POST("/department", controller.InsertDepartment)
 	r.GET("/department", controller.GetAllDepartment)
-	//r.GET("/department/:id", controller.GetOneDepartment)
+	r.GET("/department/:id", controller.GetOneDepartment)
 	//r.PUT("/department/:id", controller.UpdateDepartment)
 	//r.DELETE("/department/:id", controller.DeleteDepartment)
 

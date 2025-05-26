@@ -246,3 +246,22 @@ func (m *MangaController) GetAllDepartment(c *gin.Context) {
 		return
 	}
 }
+
+// Get One departmnet
+func (m *MangaController) GetOneDepartment(c *gin.Context) {
+	DB := m.Db
+	var uri model.DepartmentUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewDepartmentRepository(DB)
+	get := repository.GetOneDepartment(uri.ID)
+	if (get != model.Department{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get department successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "department not found"})
+		return
+	}
+}
