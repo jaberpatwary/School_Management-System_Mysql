@@ -61,7 +61,7 @@ func (p *DepartmentRepository) GetAllDepartment() []model.Department {
 
 // GetOne department
 func (m *DepartmentRepository) GetOneDepartment(id int) model.Department {
-	query, err := m.Db.Query("SELECT * FROM school.course WHERE id = ?", id)
+	query, err := m.Db.Query("SELECT * FROM school.department WHERE id = ?", id)
 	if err != nil {
 		log.Println(err)
 		return model.Department{}
