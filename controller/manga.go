@@ -330,3 +330,36 @@ func (m *MangaController) InsertStudent(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all student
+func (m *MangaController) GetAllStudent(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewStudentRepository(DB)
+	get := repository.GetAllStudent()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get student successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "student not found"})
+		return
+	}
+}
+
+// Get One student
+func (m *MangaController) GetOneStudent(c *gin.Context) {
+	DB := m.Db
+	var uri model.StudentUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewStudentRepository(DB)
+	get := repository.GetOneStudent(uri.ID)
+	if (get != model.Student{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get student successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "student not found"})
+		return
+	}
+}

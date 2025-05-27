@@ -32,3 +32,58 @@ func (p *StudentRepository) InsertStudent(post model.PostStudent) bool {
 	}
 	return true
 }
+
+// GetAll student
+func (p *StudentRepository) GetAllStudent() []model.Student {
+	query, err := p.Db.Query("SELECT * FROM school.student")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var students []model.Student
+	if query != nil {
+		for query.Next() {
+			var (
+				id            int
+				name          string
+				date_of_birth *int
+				email         *string
+			)
+			err := query.Scan(&id, &name, &date_of_birth, &email)
+			if err != nil {
+				log.Println(err)
+			}
+			student := model.Student{ID: id, Name: name, Date_Of_Birth: date_of_birth, Email: email}
+			students = append(students, student)
+		}
+	}
+	return students
+}
+
+// GetOne student
+func (m *StudentRepository) GetOneStudent(id int) model.Student {
+	query, err := m.Db.Query("SELECT * FROM school.student WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return model.Student{}
+	}
+	defer query.Close()
+	var student model.Student
+	if query != nil {
+		for query.Next() {
+			var (
+				id            int
+				name          string
+				date_of_birth *int
+				email         *string
+			)
+			err := query.Scan(&id, &name, &date_of_birth, &email)
+			if err != nil {
+				log.Println(err)
+				return model.Student{}
+			}
+			student = model.Student{ID: id, Name: name, Date_Of_Birth: date_of_birth, Email: email}
+		}
+	}
+	return student
+}
