@@ -428,3 +428,17 @@ func (m *MangaController) InsertEnroll(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all enroll
+func (m *MangaController) GetAllEnroll(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewEnrollRepository(DB)
+	get := repository.GetAllEnroll()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get enroll successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "enroll not found"})
+		return
+	}
+}

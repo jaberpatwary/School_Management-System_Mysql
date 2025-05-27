@@ -35,6 +35,7 @@ type MangaControllerInterface interface {
 
 	//enroll
 	InsertEnroll(*gin.Context)
+	GetAllEnroll(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {

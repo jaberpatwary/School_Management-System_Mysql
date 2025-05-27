@@ -32,3 +32,30 @@ func (p *EnrollRepository) InsertEnroll(post model.PostEnroll) bool {
 	}
 	return true
 }
+
+// GetAll enroll
+func (p *EnrollRepository) GetAllEnroll() []model.Enroll {
+	query, err := p.Db.Query("SELECT * FROM school.enroll")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var enrolls []model.Enroll
+	if query != nil {
+		for query.Next() {
+			var (
+				id         int
+				course_id  int
+				student_id *int
+				date       *int
+			)
+			err := query.Scan(&id, &course_id, &student_id, &date)
+			if err != nil {
+				log.Println(err)
+			}
+			enroll := model.Enroll{ID: id, Course_Id: course_id, Student_Id: student_id, Date: date}
+			enrolls = append(enrolls, enroll)
+		}
+	}
+	return enrolls
+}
