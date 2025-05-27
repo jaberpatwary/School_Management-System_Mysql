@@ -48,7 +48,7 @@ func (a *App) Routes() {
 	r.GET("/student", controller.GetAllStudent)
 	r.GET("/student/:id", controller.GetOneStudent)
 	r.PUT("/student/:id", controller.UpdateStudent)
-	//r.DELETE("/student/:id", controller.DeleteStudent)
+	r.DELETE("/student/:id", controller.DeleteStudent)
 
 	a.Router = r
 }
