@@ -101,7 +101,7 @@ func (p *StudentRepository) UpdateStudent(id int, post model.PostStudent) model.
 
 // Delete student
 func (m *StudentRepository) DeleteStudent(id int) bool {
-	_, err := m.Db.Exec("DELETE FROM studnet WHERE id = ?", id)
+	_, err := m.Db.Exec("DELETE FROM student WHERE id = ?", id)
 	if err != nil {
 		log.Println(err)
 		return false
