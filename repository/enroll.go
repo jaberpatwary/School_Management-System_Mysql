@@ -87,3 +87,14 @@ func (m *EnrollRepository) GetOneEnroll(id int) model.Enroll {
 	}
 	return enroll
 }
+
+//update enroll
+
+func (p *EnrollRepository) UpdateEnroll(id int, post model.PostEnroll) model.Enroll {
+	_, err := p.Db.Exec("UPDATE enroll SET course_id = ?, student_id = ?, date = ? WHERE id = ?", post.Course_Id, post.Student_Id, post.Date, id)
+	if err != nil {
+		log.Println(err)
+		return model.Enroll{}
+	}
+	return p.GetOneEnroll(id)
+}

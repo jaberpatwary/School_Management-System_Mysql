@@ -461,3 +461,28 @@ func (m *MangaController) GetOneEnroll(c *gin.Context) {
 		return
 	}
 }
+
+//update enroll
+
+func (m *MangaController) UpdateEnroll(c *gin.Context) {
+	DB := m.Db
+	var post model.PostEnroll
+	var uri model.EnrollUri
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewEnrollRepository(DB)
+	update := repository.UpdateEnroll(uri.ID, post)
+	if (update != model.Enroll{}) {
+		c.JSON(200, gin.H{"status": "success", "data": update, "enroll ": "update enroll successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "data": nil, "enroll  ": "update enroll  failed"})
+		return
+	}
+}

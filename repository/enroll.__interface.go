@@ -7,5 +7,5 @@ type EnrollRepositoryInterface interface {
 	GetAllEnroll() []model.Enroll
 	GetOneEnroll(int) model.Enroll
 	//DeleteEnroll(int) bool
-	//UpdateEnroll(int, model.PostEnroll) model.Enroll
+	UpdateEnroll(int, model.PostEnroll) model.Enroll
 }
