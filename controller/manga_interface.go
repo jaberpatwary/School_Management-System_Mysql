@@ -30,6 +30,7 @@ type MangaControllerInterface interface {
 	InsertStudent(*gin.Context)
 	GetAllStudent(*gin.Context)
 	GetOneStudent(*gin.Context)
+	UpdateStudent(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {

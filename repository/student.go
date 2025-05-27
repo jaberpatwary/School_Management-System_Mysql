@@ -87,3 +87,14 @@ func (m *StudentRepository) GetOneStudent(id int) model.Student {
 	}
 	return student
 }
+
+//update student
+
+func (p *StudentRepository) UpdateStudent(id int, post model.PostStudent) model.Student {
+	_, err := p.Db.Exec("UPDATE student SET name = ?, date_of_birth = ?, email = ? WHERE id = ?", post.Name, post.Date_Of_Birth, post.Email, id)
+	if err != nil {
+		log.Println(err)
+		return model.Student{}
+	}
+	return p.GetOneStudent(id)
+}

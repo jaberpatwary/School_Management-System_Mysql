@@ -7,5 +7,5 @@ type StudentRepositoryInterface interface {
 	GetAllStudent() []model.Student
 	GetOneStudent(int) model.Student
 	//DeleteStudent(int) bool
-	//UpdateStudent(int, model.PostStudent) model.Student
+	UpdateStudent(int, model.PostStudent) model.Student
 }
