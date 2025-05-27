@@ -442,3 +442,22 @@ func (m *MangaController) GetAllEnroll(c *gin.Context) {
 		return
 	}
 }
+
+// Get One enroll
+func (m *MangaController) GetOneEnroll(c *gin.Context) {
+	DB := m.Db
+	var uri model.EnrollUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewEnrollRepository(DB)
+	get := repository.GetOneEnroll(uri.ID)
+	if (get != model.Enroll{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get enroll successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "enroll not found"})
+		return
+	}
+}

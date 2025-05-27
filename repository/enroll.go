@@ -59,3 +59,31 @@ func (p *EnrollRepository) GetAllEnroll() []model.Enroll {
 	}
 	return enrolls
 }
+
+// GetOne enroll
+func (m *EnrollRepository) GetOneEnroll(id int) model.Enroll {
+	query, err := m.Db.Query("SELECT * FROM school.enroll WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return model.Enroll{}
+	}
+	defer query.Close()
+	var enroll model.Enroll
+	if query != nil {
+		for query.Next() {
+			var (
+				id         int
+				course_id  int
+				student_id *int
+				date       *int
+			)
+			err := query.Scan(&id, &course_id, &student_id, &date)
+			if err != nil {
+				log.Println(err)
+				return model.Enroll{}
+			}
+			enroll = model.Enroll{ID: id, Course_Id: course_id, Student_Id: student_id, Date: date}
+		}
+	}
+	return enroll
+}
