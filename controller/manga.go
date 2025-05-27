@@ -486,3 +486,22 @@ func (m *MangaController) UpdateEnroll(c *gin.Context) {
 		return
 	}
 }
+
+// Delete enroll
+func (m *MangaController) DeleteEnroll(c *gin.Context) {
+	DB := m.Db
+	var uri model.EnrollUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewEnrollRepository(DB)
+	delete := repository.DeleteEnroll(uri.ID)
+	if delete {
+		c.JSON(200, gin.H{"status": "success", "msg": "delete enroll successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "msg": "delete enroll  failed"})
+		return
+	}
+}

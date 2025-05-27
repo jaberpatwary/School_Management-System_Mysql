@@ -98,3 +98,13 @@ func (p *EnrollRepository) UpdateEnroll(id int, post model.PostEnroll) model.Enr
 	}
 	return p.GetOneEnroll(id)
 }
+
+// Delete enroll
+func (m *EnrollRepository) DeleteEnroll(id int) bool {
+	_, err := m.Db.Exec("DELETE FROM enroll WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}
