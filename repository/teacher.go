@@ -87,3 +87,14 @@ func (m *teacherRepository) GetOneTeacher(id int) model.Teacher {
 	}
 	return teacher
 }
+
+//update teacher
+
+func (p *teacherRepository) UpdateTeacher(id int, post model.PostTeacher) model.Teacher {
+	_, err := p.Db.Exec("UPDATE teacher SET name = ?, department_id = ?, email = ? WHERE id = ?", post.Name, post.Department_Id, post.Email, id)
+	if err != nil {
+		log.Println(err)
+		return model.Teacher{}
+	}
+	return p.GetOneTeacher(id)
+}

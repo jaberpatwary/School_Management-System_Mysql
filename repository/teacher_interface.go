@@ -7,5 +7,5 @@ type TeacherRepositoryInterface interface {
 	GetAllTeacher() []model.Teacher
 	GetOneTeacher(int) model.Teacher
 	//DeleteTeacher(int) bool
-	//UpdateTeacher(int, model.PostTeacher) model.Teacher
+	UpdateTeacher(int, model.PostTeacher) model.Teacher
 }
