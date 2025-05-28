@@ -7,5 +7,5 @@ type GradeRepositoryInterface interface {
 	GetAllGrade() []model.Grade
 	GetOneGrade(int) model.Grade
 	//DeleteGrade(int) bool
-	//UpdateGrade(int, model.PostGrade) model.Grade
+	UpdateGrade(int, model.PostGrade) model.Grade
 }

@@ -87,3 +87,14 @@ func (m *GradeRepository) GetOneGrade(id int) model.Grade {
 	}
 	return grade
 }
+
+//update grade
+
+func (p *GradeRepository) UpdateGrade(id int, post model.PostGrade) model.Grade {
+	_, err := p.Db.Exec("UPDATE grade SET course_id = ?, student_id = ?, score = ? WHERE id = ?", post.Course_Id, post.Student_Id, post.Score, id)
+	if err != nil {
+		log.Println(err)
+		return model.Grade{}
+	}
+	return p.GetOneGrade(id)
+}

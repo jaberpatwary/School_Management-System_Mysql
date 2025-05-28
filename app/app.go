@@ -61,7 +61,7 @@ func (a *App) Routes() {
 	r.POST("/grade", controller.InsertGrade)
 	r.GET("/grade", controller.GetAllGrade)
 	r.GET("/grade/:id", controller.GetOneGrade)
-	//r.PUT("/grade/:id", controller.UpdateGrade)
+	r.PUT("/grade/:id", controller.UpdateGrade)
 	//r.DELETE("/grade/:id", controller.DeleteGrade)
 
 	a.Router = r

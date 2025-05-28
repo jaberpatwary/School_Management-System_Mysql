@@ -559,3 +559,27 @@ func (m *MangaController) GetOneGrade(c *gin.Context) {
 		return
 	}
 }
+
+// update grade
+func (m *MangaController) UpdateGrade(c *gin.Context) {
+	DB := m.Db
+	var post model.PostGrade
+	var uri model.GradeUri
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewGradeRepository(DB)
+	update := repository.UpdateGrade(uri.ID, post)
+	if (update != model.Grade{}) {
+		c.JSON(200, gin.H{"status": "success", "data": update, "grade ": "update grade successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "data": nil, "grade  ": "update grade failed"})
+		return
+	}
+}
