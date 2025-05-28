@@ -98,3 +98,13 @@ func (p *GradeRepository) UpdateGrade(id int, post model.PostGrade) model.Grade 
 	}
 	return p.GetOneGrade(id)
 }
+
+// Delete grade
+func (m *GradeRepository) DeleteGrade(id int) bool {
+	_, err := m.Db.Exec("DELETE FROM grade WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}

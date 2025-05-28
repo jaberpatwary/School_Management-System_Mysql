@@ -45,6 +45,7 @@ type MangaControllerInterface interface {
 	GetAllGrade(*gin.Context)
 	GetOneGrade(*gin.Context)
 	UpdateGrade(*gin.Context)
+	DeleteGrade(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {

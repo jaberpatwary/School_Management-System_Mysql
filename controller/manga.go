@@ -583,3 +583,22 @@ func (m *MangaController) UpdateGrade(c *gin.Context) {
 		return
 	}
 }
+
+// Delete grade
+func (m *MangaController) DeleteGrade(c *gin.Context) {
+	DB := m.Db
+	var uri model.GradeUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewGradeRepository(DB)
+	delete := repository.DeleteGrade(uri.ID)
+	if delete {
+		c.JSON(200, gin.H{"status": "success", "msg": "delete grade successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "msg": "delete grade  failed"})
+		return
+	}
+}
