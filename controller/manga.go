@@ -680,3 +680,22 @@ func (m *MangaController) UpdateTeacher(c *gin.Context) {
 		return
 	}
 }
+
+// Delete teacher
+func (m *MangaController) DeleteTeacher(c *gin.Context) {
+	DB := m.Db
+	var uri model.TeacherUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewTeacherRepository(DB)
+	delete := repository.DeleteTeacher(uri.ID)
+	if delete {
+		c.JSON(200, gin.H{"status": "success", "msg": "delete teacher successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "failed", "msg": "delete teacher  failed"})
+		return
+	}
+}

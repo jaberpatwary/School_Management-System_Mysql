@@ -98,3 +98,13 @@ func (p *teacherRepository) UpdateTeacher(id int, post model.PostTeacher) model.
 	}
 	return p.GetOneTeacher(id)
 }
+
+// Delete teacher
+func (m *teacherRepository) DeleteTeacher(id int) bool {
+	_, err := m.Db.Exec("DELETE FROM teacher WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}
