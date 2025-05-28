@@ -540,3 +540,22 @@ func (m *MangaController) GetAllGrade(c *gin.Context) {
 		return
 	}
 }
+
+// Get One grade
+func (m *MangaController) GetOneGrade(c *gin.Context) {
+	DB := m.Db
+	var uri model.GradeUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewGradeRepository(DB)
+	get := repository.GetOneGrade(uri.ID)
+	if (get != model.Grade{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get grade successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "grade not found"})
+		return
+	}
+}

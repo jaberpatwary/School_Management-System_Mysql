@@ -59,3 +59,31 @@ func (p *GradeRepository) GetAllGrade() []model.Grade {
 	}
 	return grades
 }
+
+// GetOne grade
+func (m *GradeRepository) GetOneGrade(id int) model.Grade {
+	query, err := m.Db.Query("SELECT * FROM school.grade WHERE id = ?", id)
+	if err != nil {
+		log.Println(err)
+		return model.Grade{}
+	}
+	defer query.Close()
+	var grade model.Grade
+	if query != nil {
+		for query.Next() {
+			var (
+				id         int
+				course_id  int
+				student_id *int
+				score      *int
+			)
+			err := query.Scan(&id, &course_id, &student_id, &score)
+			if err != nil {
+				log.Println(err)
+				return model.Grade{}
+			}
+			grade = model.Grade{ID: id, Course_Id: course_id, Student_Id: student_id, Score: score}
+		}
+	}
+	return grade
+}
