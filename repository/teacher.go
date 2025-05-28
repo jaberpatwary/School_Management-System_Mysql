@@ -62,7 +62,7 @@ func (p *teacherRepository) GetAllTeacher() []model.Teacher {
 
 // GetOne teacher
 func (m *teacherRepository) GetOneTeacher(id int) model.Teacher {
-	query, err := m.Db.Query("SELECT * FROM school.teahcer WHERE id = ?", id)
+	query, err := m.Db.Query("SELECT * FROM school.teacher WHERE id = ?", id)
 	if err != nil {
 		log.Println(err)
 		return model.Teacher{}
