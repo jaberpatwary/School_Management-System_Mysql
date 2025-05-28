@@ -49,6 +49,7 @@ type MangaControllerInterface interface {
 
 	//teacher
 	InsertTeacher(*gin.Context)
+	GetAllTeacher(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {

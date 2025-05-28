@@ -623,3 +623,17 @@ func (m *MangaController) InsertTeacher(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all teacher
+func (m *MangaController) GetAllTeacher(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewTeacherRepository(DB)
+	get := repository.GetAllTeacher()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get teacher successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "teacher not found"})
+		return
+	}
+}

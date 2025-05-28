@@ -32,3 +32,30 @@ func (p *teacherRepository) InsertTeacher(post model.PostTeacher) bool {
 	}
 	return true
 }
+
+// GetAll teacher
+func (p *teacherRepository) GetAllTeacher() []model.Teacher {
+	query, err := p.Db.Query("SELECT * FROM school.teacher")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var teachers []model.Teacher
+	if query != nil {
+		for query.Next() {
+			var (
+				id            int
+				name          string
+				department_id *int
+				email         *string
+			)
+			err := query.Scan(&id, &name, &department_id, &email)
+			if err != nil {
+				log.Println(err)
+			}
+			teacher := model.Teacher{ID: id, Name: name, Department_Id: department_id, Email: email}
+			teachers = append(teachers, teacher)
+		}
+	}
+	return teachers
+}
