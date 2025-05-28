@@ -526,3 +526,17 @@ func (m *MangaController) InsertGrade(c *gin.Context) {
 		return
 	}
 }
+
+// Gell all grade
+func (m *MangaController) GetAllGrade(c *gin.Context) {
+	DB := m.Db
+	repository := repository.NewGradeRepository(DB)
+	get := repository.GetAllGrade()
+	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get grade successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "grade not found"})
+		return
+	}
+}

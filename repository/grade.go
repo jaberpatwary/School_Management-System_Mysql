@@ -32,3 +32,30 @@ func (p *GradeRepository) InsertGrade(post model.PostGrade) bool {
 	}
 	return true
 }
+
+// GetAll grade
+func (p *GradeRepository) GetAllGrade() []model.Grade {
+	query, err := p.Db.Query("SELECT * FROM school.grade")
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+	var grades []model.Grade
+	if query != nil {
+		for query.Next() {
+			var (
+				id         int
+				course_id  int
+				student_id *int
+				score      *int
+			)
+			err := query.Scan(&id, &course_id, &student_id, &score)
+			if err != nil {
+				log.Println(err)
+			}
+			grade := model.Grade{ID: id, Course_Id: course_id, Student_Id: student_id, Score: score}
+			grades = append(grades, grade)
+		}
+	}
+	return grades
+}
