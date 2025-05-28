@@ -446,18 +446,18 @@ func (m *MangaController) GetAllEnroll(c *gin.Context) {
 // Get One enroll
 func (m *MangaController) GetOneEnroll(c *gin.Context) {
 	DB := m.Db
-	var uri model.EnrollUri
+	var uri model.TeacherUri
 	if err := c.ShouldBindUri(&uri); err != nil {
 		c.JSON(400, gin.H{"status": "failed", "msg": err})
 		return
 	}
-	repository := repository.NewEnrollRepository(DB)
-	get := repository.GetOneEnroll(uri.ID)
-	if (get != model.Enroll{}) {
-		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get enroll successfully"})
+	repository := repository.NewTeacherRepository(DB)
+	get := repository.GetOneTeacher(uri.ID)
+	if (get != model.Teacher{}) {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get teacher successfully"})
 		return
 	} else {
-		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "enroll not found"})
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": " not found"})
 		return
 	}
 }
@@ -630,6 +630,25 @@ func (m *MangaController) GetAllTeacher(c *gin.Context) {
 	repository := repository.NewTeacherRepository(DB)
 	get := repository.GetAllTeacher()
 	if get != nil {
+		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get teacher successfully"})
+		return
+	} else {
+		c.JSON(500, gin.H{"status": "success", "data": nil, "msg": "teacher not found"})
+		return
+	}
+}
+
+// Get One teacher
+func (m *MangaController) GetOneTeacher(c *gin.Context) {
+	DB := m.Db
+	var uri model.TeacherUri
+	if err := c.ShouldBindUri(&uri); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+	repository := repository.NewTeacherRepository(DB)
+	get := repository.GetOneTeacher(uri.ID)
+	if (get != model.Teacher{}) {
 		c.JSON(200, gin.H{"status": "success", "data": get, "msg": "get teacher successfully"})
 		return
 	} else {
