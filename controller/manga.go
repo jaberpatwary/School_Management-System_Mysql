@@ -505,3 +505,24 @@ func (m *MangaController) DeleteEnroll(c *gin.Context) {
 		return
 	}
 }
+
+// insart grade
+func (m *MangaController) InsertGrade(c *gin.Context) {
+
+	DB := m.Db
+	var post model.PostGrade
+	if err := c.ShouldBind(&post); err != nil {
+		c.JSON(400, gin.H{"status": "failed", "msg": err})
+		return
+	}
+
+	repository := repository.NewGradeRepository(DB)
+	insert := repository.InsertGrade(post)
+	if insert {
+		c.JSON(201, gin.H{"Status": "success", "meg": " grade has saved!"})
+		return
+	} else {
+		c.JSON(500, gin.H{"Status": "failed", "meg": " grade  is not saved!"})
+		return
+	}
+}

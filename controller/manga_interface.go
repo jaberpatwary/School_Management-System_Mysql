@@ -39,11 +39,13 @@ type MangaControllerInterface interface {
 	GetOneEnroll(*gin.Context)
 	UpdateEnroll(*gin.Context)
 	DeleteEnroll(*gin.Context)
+
+	//grade
+	InsertGrade(*gin.Context)
 }
 
 type ClassroomControllerInterface interface {
 	//InsertClassroom(*gin.Context)
-	//GetAllClassroom(*gin.Context)
 	//GetOneClassroom(*gin.Context)
 	//UpdateClassroom(*gin.Context)
 	//DeleteClassroom(*gin.Context)
@@ -77,4 +79,11 @@ type EnrollControllerInterface interface {
 	//GetOneEnroll(*gin.Context)
 	//UpdateEnroll(*gin.Context)
 	//DeleteEnroll(*gin.Context)
+}
+type GradeControllerInterface interface {
+	//InsertGrade(*gin.Context)
+	//GetAllGrade(*gin.Context)
+	//GetOneGrade(*gin.Context)
+	//UpdateGrade(*gin.Context)
+	//DeleteGrade(*gin.Context)
 }
